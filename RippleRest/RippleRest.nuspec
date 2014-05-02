@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>RippleRest</id>
+    <version>1.0.0</version>
+    <title>Ripple Rest for .NET</title>
+    <authors>Yeechan Lu</authors>
+    <licenseUrl>http://orzfly.mit-license.org/</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Ripple REST client for .NET.</description>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="6.0.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\net40\RippleRest.dll" target="lib\net40\RippleRest.dll" />
+    <file src="bin\Release\net40\RippleRest.pdb" target="lib\net40\RippleRest.pdb" />
+    <file src="bin\Release\net40\RippleRest.xml" target="lib\net40\RippleRest.xml" />
+    <file src="bin\Release\net45\RippleRest.dll" target="lib\net45\RippleRest.dll" />
+    <file src="bin\Release\net45\RippleRest.pdb" target="lib\net45\RippleRest.pdb" />
+    <file src="bin\Release\net45\RippleRest.xml" target="lib\net45\RippleRest.xml" />
+  </files>
+</package>
