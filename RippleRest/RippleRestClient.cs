@@ -6,9 +6,16 @@ using Newtonsoft.Json;
 
 namespace RippleRest
 {
+    /// <summary>
+    /// Ripple Rest Client for .NET.
+    /// </summary>
     public sealed class RippleRestClient
     {
         private static RippleRestClient defaultInstance = null;
+
+        /// <summary>
+        /// Set the default instance of RippleRestClient used by Account and other objects.
+        /// </summary>
         public static RippleRestClient DefaultInstance {
             get
             {
@@ -29,6 +36,9 @@ namespace RippleRest
             return DefaultInstance;
         }
 
+        /// <summary>
+        /// Set the RestClient instance used for request.
+        /// </summary>
         public RestSharp.RestClient RestClient
         {
             get;
@@ -37,12 +47,19 @@ namespace RippleRest
 
         private JsonSerializer JsonSerializer;
 
+        /// <summary>
+        /// Create a new instance of RippleRestClient.
+        /// </summary>
+        /// <param name="endpointURL">Endpoint URI, like "http://localhost:5990/"</param>
         public RippleRestClient(string endpointURL)
         {
             RestClient = new RestClient(endpointURL);
             JsonSerializer = new JsonSerializer();
         }
 
+        /// <summary>
+        /// Endpoint URI, like "http://localhost:5990/"
+        /// </summary>
         public String EndpointURL
         {
             get
@@ -114,6 +131,11 @@ namespace RippleRest
             public bool Connected { set; get; }
         }
 
+        /// <summary>
+        /// A simple endpoint that can be used to check if ripple-rest is connected to a rippled and is ready to serve. If used before querying the other endpoints this can be used to centralize the logic to handle if rippled is disconnected from the Ripple Network and unable to process transactions.
+        /// </summary>
+        /// <returns>true if `ripple-rest` is ready to serve</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
         public bool IsServerConnected()
         {
             var result = RestClient.Execute<IsServerConnectedResult>(CreateGetRequest("v1/server/connected"));
@@ -121,6 +143,11 @@ namespace RippleRest
             return result.Data.Connected;
         }
 
+        /// <summary>
+        /// Retrieve information about the ripple-rest and connected rippled's current status.
+        /// </summary>
+        /// <returns>ServerInfo object. See https://github.com/ripple/ripple-rest/blob/develop/docs/api-reference.md#get-server-info fore more information</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
         public ServerInfo GetServerInfo()
         {
             var result = RestClient.Execute<ServerInfo>(CreateGetRequest("v1/server"));
@@ -128,6 +155,12 @@ namespace RippleRest
             return result.Data;
         }
 
+        /// <summary>
+        /// Retrieve the details of a transaction in the standard Ripple JSON format. 
+        /// </summary>
+        /// <param name="hash">Transaction hash</param>
+        /// <returns></returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
         public object GetTransaction(string hash)
         {
             var result = RestClient.Execute(CreateGetRequest("v1/transactions/" + hash));
@@ -141,6 +174,11 @@ namespace RippleRest
             public string UUID { set; get; }
         }
 
+        /// <summary>
+        /// A UUID v4 generator.
+        /// </summary>
+        /// <returns>String "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
         public string GenerateUUID()
         {
             var result = RestClient.Execute<GenerateUUIDResult>(CreateGetRequest("v1/uuid"));

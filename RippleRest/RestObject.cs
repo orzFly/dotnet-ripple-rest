@@ -8,24 +8,41 @@ using System.ComponentModel;
 
 namespace RippleRest
 {
+    /// <summary>
+    /// Base class for all RestObject
+    /// </summary>
     public abstract class RestObject
     {
+        /// <summary>
+        /// Attribute used for marking a string pattern defined in JSON Schemas.
+        /// </summary>
         [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-        internal sealed class RegexpPatternAttribute : Attribute
+        protected sealed class RegexpPatternAttribute : Attribute
         {
             readonly Regex regexp;
 
+            /// <summary>
+            /// Create a new instance of RegexpPatternAttribute
+            /// </summary>
+            /// <param name="regexp">Regular Expression pattern in string</param>
             public RegexpPatternAttribute(string regexp)
             {
                 this.regexp = new Regex(regexp, RegexOptions.Compiled);
             }
 
+            /// <summary>
+            /// Returns the compiled regular expression pattern object.
+            /// </summary>
             public Regex RegexpPattern
             {
                 get { return regexp; }
             }
         }
 
+        /// <summary>
+        /// Check if all fields meets the requirements under JSON schema. 
+        /// </summary>
+        /// <exception cref="ArgumentException">If there is any field fails to be validated.</exception>
         public void Validate()
         {
             foreach (var item in this.GetType().GetProperties())

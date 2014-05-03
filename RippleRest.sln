@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RippleRest", "RippleRest\Ri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RippleRest.Demo", "RippleRest.Demo\RippleRest.Demo.csproj", "{0EFFF120-DB26-40ED-87E9-BB332D5B51A1}"
 EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Documentation", "Documentation\Documentation.shfbproj", "{A90C03CF-0C70-456C-A513-1217691C3AC4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AE0D7D87-8F6B-422A-BD7A-0300AE459448} = {AE0D7D87-8F6B-422A-BD7A-0300AE459448}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +24,10 @@ Global
 		{0EFFF120-DB26-40ED-87E9-BB332D5B51A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EFFF120-DB26-40ED-87E9-BB332D5B51A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EFFF120-DB26-40ED-87E9-BB332D5B51A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A90C03CF-0C70-456C-A513-1217691C3AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A90C03CF-0C70-456C-A513-1217691C3AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A90C03CF-0C70-456C-A513-1217691C3AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A90C03CF-0C70-456C-A513-1217691C3AC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

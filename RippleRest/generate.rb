@@ -1,5 +1,6 @@
 require 'json'
 require 'stringio'
+require 'cgi'
 
 class String
   def underscore
@@ -58,8 +59,16 @@ schemas.values.select{|i|i["type"] == "object"}.each do |json|
     elsif
       raise "Unsupported type"
     end
-    
+    io2.puts <<EOF
+        /// <summary>
+        /// #{v["description"]}
+        /// </summary>
+EOF
     io2.puts <<EOF if !pattern.nil?
+        /// <remarks>
+        /// This field should follow the following regular expression pattern:
+        /// <code language="RegExp">#{CGI::escapeHTML(pattern)}</code>
+        /// </remarks>
         [RegexpPattern(#{pattern.inspect})]
 EOF
     io2.puts <<EOF
@@ -79,6 +88,9 @@ using System.ComponentModel;
 
 namespace RippleRest
 {
+    /// <summary>
+    /// #{json['description']}
+    /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public partial class #{key} : RestObject
     {
