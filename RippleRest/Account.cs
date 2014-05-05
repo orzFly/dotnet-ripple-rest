@@ -388,5 +388,448 @@ namespace RippleRest
 
             return result.Data.Payment;
         }
+
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        private class FindPaymentPathsResponse : RestResponseObject
+        {
+            [JsonProperty("payments")]
+            public List<Payment> Payments { set; get; }
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(string destinationAccount, string destinationAmount)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(string destinationAccount, string destinationAmount, List<Amount> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(string destinationAccount, string destinationAmount, List<Balance> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(string destinationAccount, string destinationAmount, List<string> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(Account destinationAccount, string destinationAmount)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(Account destinationAccount, string destinationAmount, List<Amount> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(Account destinationAccount, string destinationAmount, List<Balance> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(Account destinationAccount, string destinationAmount, List<string> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(Account destinationAccount, Amount destinationAmount)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(Account destinationAccount, Amount destinationAmount, List<Amount> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(Account destinationAccount, Amount destinationAmount, List<Balance> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(Account destinationAccount, Amount destinationAmount, List<string> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(string destinationAccount, Amount destinationAmount)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(string destinationAccount, Amount destinationAmount, List<Amount> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(string destinationAccount, Amount destinationAmount, List<Balance> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(string destinationAccount, Amount destinationAmount, List<string> sourceCurrencies)
+        {
+            return FindPaymentPaths(RippleRestClient.GetDefaultInstanceOrThrow(), destinationAccount, destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, Account destinationAccount, Amount destinationAmount)
+        {
+            return FindPaymentPaths(client, destinationAccount.ToString(), destinationAmount.ToString());
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, Account destinationAccount, Amount destinationAmount, List<Amount> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount.ToString(), destinationAmount.ToString(), sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, Account destinationAccount, Amount destinationAmount, List<Balance> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount.ToString(), destinationAmount.ToString(), sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, Account destinationAccount, Amount destinationAmount, List<string> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount.ToString(), destinationAmount.ToString(), sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, Account destinationAccount, string destinationAmount)
+        {
+            return FindPaymentPaths(client, destinationAccount.ToString(), destinationAmount);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, Account destinationAccount, string destinationAmount, List<Amount> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount.ToString(), destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, Account destinationAccount, string destinationAmount, List<Balance> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount.ToString(), destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, Account destinationAccount, string destinationAmount, List<string> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount.ToString(), destinationAmount, sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, string destinationAccount, Amount destinationAmount)
+        {
+            return FindPaymentPaths(client, destinationAccount, destinationAmount.ToString());
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, string destinationAccount, Amount destinationAmount, List<Amount> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount, destinationAmount.ToString(), sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, string destinationAccount, Amount destinationAmount, List<Balance> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount, destinationAmount.ToString(), sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, string destinationAccount, Amount destinationAmount, List<string> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount, destinationAmount.ToString(), sourceCurrencies);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, string destinationAccount, string destinationAmount)
+        {
+            return FindPaymentPaths(client, destinationAccount, destinationAmount, (List<string>) null);
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, string destinationAccount, string destinationAmount, List<Amount> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount, destinationAmount, sourceCurrencies == null ? null : sourceCurrencies.ConvertAll((o) => o.ToCurrencyString()));
+        }
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, string destinationAccount, string destinationAmount, List<Balance> sourceCurrencies)
+        {
+            return FindPaymentPaths(client, destinationAccount, destinationAmount, sourceCurrencies == null ? null : sourceCurrencies.ConvertAll((o) => o.ToCurrencyString()));
+        }
+
+
+        /// <summary>
+        /// Query `rippled` for possible payment "paths" through the Ripple Network to deliver the given amount to the specified `destination_account`. If the `destination_amount` issuer is not specified, paths will be returned for all of the issuers from whom the `destination_account` accepts the given currency.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="destinationAccount">Destination account</param>
+        /// <param name="destinationAmount">Destination amount</param>
+        /// <param name="sourceCurrencies">an array of source currencies that can be used to constrain the results returned (e.g. `["XRP", "USD+r...", "BTC+r..."]`) Currencies can be denoted by their currency code (e.g. USD) or by their currency code and issuer (e.g. `USD+r...`). If no issuer is specified for a currency other than XRP, the results will be limited to the specified currencies but any issuer for that currency will do.</param>
+        /// <returns>Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> FindPaymentPaths(RippleRestClient client, string destinationAccount, string destinationAmount, List<string> sourceCurrencies)
+        {
+            var srcCury = "";
+            if (sourceCurrencies != null && sourceCurrencies.Count > 0)
+            {
+                srcCury = "?" + String.Join(",", sourceCurrencies);
+            }
+            var request = client.CreateGetRequest("v1/accounts/{0}/payments/paths/{1}/{2}{3}", Address, destinationAccount, destinationAmount, srcCury);
+            var result = client.RestClient.Execute<FindPaymentPathsResponse>(request);
+            client.HandleRestResponseErrors(result);
+
+            return result.Data.Payments;
+        }
+
     }
 }

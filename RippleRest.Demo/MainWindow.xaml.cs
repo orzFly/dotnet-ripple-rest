@@ -297,5 +297,46 @@ namespace RippleRest.Demo
                 });
             }).Start();
         }
+
+        private void FindPaymentPaths(object sender, RoutedEventArgs e)
+        {
+            var account = new Account(this.AccountAddressBox.Text, this.AccountSecretBox.Text);
+            var destAcc = this.FindPaymentPathsAccount.Text;
+            var destAmount = this.FindPaymentPathsAmount.Text;
+            List<string> src = null;
+
+            if (!string.IsNullOrWhiteSpace(this.FindPaymentPathsSrcCurs.Text))
+                src = this.FindPaymentPathsSrcCurs.Text.Split(',').ToList();
+
+            this.FindPaymentPathsButton.IsEnabled = false;
+            this.FindPaymentPathsBox.SelectedObject = null;
+
+            new Thread(() =>
+            {
+                object result = null;
+                Exception ex = null;
+                try
+                {
+                    result = account.FindPaymentPaths(client, destAcc, destAmount, src);
+                }
+                catch (Exception exc)
+                {
+                    ex = exc;
+                }
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    this.FindPaymentPathsButton.IsEnabled = true;
+                    if (ex != null)
+                    {
+                        this.FindPaymentPathsBox.SelectedObject = ex;
+                    }
+                    else
+                    {
+                        this.FindPaymentPathsBox.SelectedObject = result;
+                    }
+                });
+            }).Start();
+        }
     }
 }

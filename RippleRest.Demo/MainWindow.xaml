@@ -57,7 +57,6 @@
                             <local:StupidPropertyGrid  x:Name="GetTrustlinesBox" Grid.Column="1"/>
                         </Grid>
                     </TabItem>
-
                     <TabItem Header="AddTrustline">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -80,6 +79,29 @@
                             <CheckBox x:Name="AddTrustlineAllowRippling" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">Allow Rippling</CheckBox>
                             <Button x:Name="AddTrustlineButton" Content="Add Trustlines" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddTrustline" Grid.Row="4"/>
                             <local:StupidPropertyGrid  x:Name="AddTrustlineBox" Grid.Column="1" Grid.Row="4"/>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="FindPaymentPaths">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center"><Run Text="Dest Account"/></TextBlock>
+                            <TextBox x:Name="FindPaymentPathsAccount" Grid.Column="1" Grid.Row="0" Height="25" TextWrapping="NoWrap" Text="rhtgn6PYbXwhA6QJJMY4btieoap31t7Uo8" VerticalAlignment="Center" MaxLines="1"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Center" VerticalAlignment="Center"><Run Text="Dest Amount"/></TextBlock>
+                            <TextBox x:Name="FindPaymentPathsAmount" Grid.Column="1" Grid.Row="1" Height="25" TextWrapping="NoWrap" Text="5+ICE+rES1hSkoWauMk3r6sgh7zfjpTCnwGbqaxA" VerticalAlignment="Center" MaxLines="1"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Center"><Run Text="Source Currencies"/></TextBlock>
+                            <TextBox x:Name="FindPaymentPathsSrcCurs" Grid.Column="1" Grid.Row="2" Height="25" TextWrapping="NoWrap" Text="" VerticalAlignment="Center" MaxLines="1"/>
+                            <Button x:Name="FindPaymentPathsButton" Content="FindPaymentPaths" HorizontalAlignment="Center" VerticalAlignment="Center" Click="FindPaymentPaths" Grid.Row="4"/>
+                            <local:StupidPropertyGrid  x:Name="FindPaymentPathsBox" Grid.Column="1" Grid.Row="4"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Settings">

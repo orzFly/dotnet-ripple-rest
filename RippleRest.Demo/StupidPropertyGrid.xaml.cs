@@ -33,8 +33,10 @@ namespace RippleRest.Demo
             PropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
             PropertyGrid.HelpVisible = false;
             PropertyGrid.Dock = DockStyle.Fill;
+            System.Drawing.Graphics a;
 
             listBox.Dock = DockStyle.Fill;
+            listBox.IntegralHeight = true;
             split.Panel1.Controls.Add(listBox);
             split.Orientation = Orientation.Vertical;
 

@@ -12,24 +12,14 @@ namespace RippleRest
     /// </summary>
     public class SerializableExpandableObjectConverter : ExpandableObjectConverter
     {
-        /// <summary>
-        /// CanConvertFrom
-        /// </summary>
-        /// <param name="context">ITypeDescriptorContext</param>
-        /// <param name="sourceType">Type</param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string)) return false;
             return base.CanConvertTo(context, sourceType);
         }
 
-        /// <summary>
-        /// CanConvertTo
-        /// </summary>
-        /// <param name="context">ITypeDescriptorContext</param>
-        /// <param name="destinationType">Type</param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string)) return false;

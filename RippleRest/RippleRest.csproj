@@ -43,13 +43,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
-    <Compile Include="Generated\AccountSettings.cs" />
-    <Compile Include="Generated\Amount.cs" />
-    <Compile Include="Generated\Balance.cs" />
-    <Compile Include="Generated\Notification.cs" />
-    <Compile Include="Generated\Order.cs" />
-    <Compile Include="Generated\Payment.cs" />
-    <Compile Include="Generated\Trustline.cs" />
+    <Compile Include="AccountSettings.generated.cs" />
+    <Compile Include="Amount.cs" />
+    <Compile Include="Amount.generated.cs" />
+    <Compile Include="Balance.cs" />
+    <Compile Include="Balance.generated.cs" />
+    <Compile Include="Notification.generated.cs" />
+    <Compile Include="Order.generated.cs" />
+    <Compile Include="Payment.generated.cs" />
+    <Compile Include="Trustline.generated.cs" />
     <Compile Include="RestRequestObject.cs" />
     <Compile Include="RestResponseObject.cs" />
     <Compile Include="RippleRestClient.cs" />
