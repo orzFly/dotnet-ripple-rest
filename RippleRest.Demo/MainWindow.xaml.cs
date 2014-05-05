@@ -181,10 +181,12 @@ namespace RippleRest.Demo
             }).Start();
         }
 
+        private AccountSettings settings;
         private void GetSettings(object sender, RoutedEventArgs e)
         {
             var account = new Account(this.AccountAddressBox.Text, this.AccountSecretBox.Text);
             this.GetSettingsButton.IsEnabled = false;
+            this.SetSettingsButton.IsEnabled = false;
             this.GetSettingsBox.SelectedObject = null;
 
             new Thread(() =>
@@ -205,11 +207,13 @@ namespace RippleRest.Demo
                     this.GetSettingsButton.IsEnabled = true;
                     if (ex != null)
                     {
+                        this.SetSettingsButton.IsEnabled = false;
                         this.GetSettingsBox.SelectedObject = ex;
                     }
                     else
                     {
-                        this.GetSettingsBox.SelectedObject = result;
+                        this.SetSettingsButton.IsEnabled = true;
+                        this.GetSettingsBox.SelectedObject = settings = (AccountSettings) result;
                     }
                 });
             }).Start();
@@ -251,6 +255,44 @@ namespace RippleRest.Demo
                     else
                     {
                         this.AddTrustlineBox.SelectedObject = result;
+                    }
+                });
+            }).Start();
+        }
+
+        private void SetSettings(object sender, RoutedEventArgs e)
+        {
+            var account = new Account(this.AccountAddressBox.Text, this.AccountSecretBox.Text);
+            this.SetSettingsButton.IsEnabled = false;
+            this.SetSettingsLabel.Content = "Submiting...";
+            this.SetSettingsLabel.Foreground = Brushes.Orange;
+
+            new Thread(() =>
+            {
+                object result = null;
+                Exception ex = null;
+                try
+                {
+                    result = account.SetSettings(client, settings);
+                }
+                catch (Exception exc)
+                {
+                    ex = exc;
+                }
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    this.SetSettingsButton.IsEnabled = true;
+                    if (ex != null)
+                    {
+                        this.SetSettingsLabel.Content = ex.ToString();
+                        this.SetSettingsLabel.Foreground = Brushes.Red;
+                    }
+                    else
+                    {
+                        this.SetSettingsLabel.Content = "Successfully submitted.";
+                        this.SetSettingsLabel.Foreground = Brushes.DarkGreen;
+                        this.GetSettingsBox.SelectedObject = settings = (AccountSettings)result;
                     }
                 });
             }).Start();

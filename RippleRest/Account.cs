@@ -271,6 +271,47 @@ namespace RippleRest
 
         [Serializable]
         [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        private class SetSettingsRequest : RestRequestObject
+        {
+            [JsonProperty("settings")]
+            public AccountSettings Settings { set; get; }
+        }
+
+        /// <summary>
+        /// Sets AccountSettings for this account.
+        /// </summary>
+        /// <param name="value">A AccountSettings instance.</param>
+        /// <returns>AccountSettings instance</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public AccountSettings SetSettings(AccountSettings value)
+        {
+            return SetSettings(RippleRestClient.GetDefaultInstanceOrThrow(), value);
+        }
+
+        /// <summary>
+        /// Sets AccountSettings for this account.
+        /// </summary>
+        /// <param name="value">A AccountSettings instance.</param>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <returns>AccountSettings instance</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public AccountSettings SetSettings(RippleRestClient client, AccountSettings value)
+        {
+            var data = new SetSettingsRequest
+            {
+                Settings = value,
+                Secret = this.Secret
+            };
+
+            var result = client.RestClient.Execute<GetSettingsResponse>(client.CreatePostRequest(data, "v1/accounts/{0}/settings", Address));
+            client.HandleRestResponseErrors(result);
+
+            result.Data.Settings.Account = this.Address;
+            return result.Data.Settings;
+        }
+
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         private class GetNotificationResponse : RestResponseObject
         {
             [JsonProperty("notification")]
