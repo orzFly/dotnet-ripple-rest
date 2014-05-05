@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RippleRest", "RippleRest\RippleRest.csproj", "{AE0D7D87-8F6B-422A-BD7A-0300AE459448}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RippleRest.Demo", "RippleRest.Demo\RippleRest.Demo.csproj", "{0EFFF120-DB26-40ED-87E9-BB332D5B51A1}"

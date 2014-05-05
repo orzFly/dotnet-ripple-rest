@@ -76,7 +76,7 @@ namespace RippleRest
             this.Secret = secret;
         }
 
-        private class GetBalancesResult : RestResultObject
+        private class GetBalancesResponse : RestResponseObject
         {
             [JsonProperty("balances")]
             public List<Balance> Balances { set; get; }
@@ -102,13 +102,13 @@ namespace RippleRest
         /// <exception cref="RippleRestException">Request failed.</exception>
         public List<Balance> GetBalances(RippleRestClient client)
         {
-            var result = client.RestClient.Execute<GetBalancesResult>(client.CreateGetRequest("v1/accounts/{0}/balances", Address));
+            var result = client.RestClient.Execute<GetBalancesResponse>(client.CreateGetRequest("v1/accounts/{0}/balances", Address));
             client.HandleRestResponseErrors(result);
 
             return result.Data.Balances;
         }
 
-        private class GetTrustlinesResult : RestResultObject
+        private class GetTrustlinesResponse : RestResponseObject
         {
             [JsonProperty("trustlines")]
             public List<Trustline> Trustlines { set; get; }
@@ -132,13 +132,13 @@ namespace RippleRest
         /// <exception cref="RippleRestException">Request failed.</exception>
         public List<Trustline> GetTrustlines(RippleRestClient client)
         {
-            var result = client.RestClient.Execute<GetTrustlinesResult>(client.CreateGetRequest("v1/accounts/{0}/trustlines", Address));
+            var result = client.RestClient.Execute<GetTrustlinesResponse>(client.CreateGetRequest("v1/accounts/{0}/trustlines", Address));
             client.HandleRestResponseErrors(result);
 
             return result.Data.Trustlines;
         }
 
-        private class GetSettingsResult : RestResultObject
+        private class GetSettingsResponse : RestResponseObject
         {
             [JsonProperty("settings")]
             public AccountSettings Settings { set; get; }
@@ -162,14 +162,14 @@ namespace RippleRest
         /// <exception cref="RippleRestException">Request failed.</exception>
         public AccountSettings GetSettings(RippleRestClient client)
         {
-            var result = client.RestClient.Execute<GetSettingsResult>(client.CreateGetRequest("v1/accounts/{0}/settings", Address));
+            var result = client.RestClient.Execute<GetSettingsResponse>(client.CreateGetRequest("v1/accounts/{0}/settings", Address));
             client.HandleRestResponseErrors(result);
 
             result.Data.Settings.Account = this.Address;
             return result.Data.Settings;
         }
 
-        private class GetNotificationResult : RestResultObject
+        private class GetNotificationResponse : RestResponseObject
         {
             [JsonProperty("notification")]
             public Notification Notification { set; get; }
@@ -205,14 +205,14 @@ namespace RippleRest
         /// <exception cref="RippleRestException">Request failed.</exception>
         public Notification GetNotification(string hash, RippleRestClient client)
         {
-            var result = client.RestClient.Execute<GetNotificationResult>(client.CreateGetRequest("v1/accounts/{0}/notifications/{1}", Address, hash));
+            var result = client.RestClient.Execute<GetNotificationResponse>(client.CreateGetRequest("v1/accounts/{0}/notifications/{1}", Address, hash));
             client.HandleRestResponseErrors(result);
 
             result.Data.Notification.Account = this.Address;
             return result.Data.Notification;
         }
 
-        private class GetPaymentResult : RestResultObject
+        private class GetPaymentResponse : RestResponseObject
         {
             [JsonProperty("payment")]
             public Payment Payment { set; get; }
@@ -238,7 +238,7 @@ namespace RippleRest
         /// <exception cref="RippleRestException">Request failed.</exception>
         public Payment GetPayment(string hash, RippleRestClient client)
         {
-            var result = client.RestClient.Execute<GetPaymentResult>(client.CreateGetRequest("v1/accounts/{0}/payments/{1}", Address, hash));
+            var result = client.RestClient.Execute<GetPaymentResponse>(client.CreateGetRequest("v1/accounts/{0}/payments/{1}", Address, hash));
             client.HandleRestResponseErrors(result);
 
             return result.Data.Payment;

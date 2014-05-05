@@ -9,7 +9,7 @@ namespace RippleRest
     /// <summary>
     /// Wrapper class for all RestObject used for Request.
     /// </summary>
-    public abstract class RestResultObject
+    public abstract class RestResponseObject
     {
         /// <summary>
         /// A bool determines if the request if successful.

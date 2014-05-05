@@ -14,7 +14,7 @@ namespace RippleRest
         /// <summary>
         /// The ResultResultObject associated.
         /// </summary>
-        public RestResultObject RestResultObject;
+        public RestResponseObject RestResultObject;
 
         /// <summary>
         /// Create a new instance of this exception.
@@ -38,14 +38,14 @@ namespace RippleRest
         /// Create a new instance of this exception.
         /// </summary>
         /// <param name="restResultObject">The ResultResultObject associated.</param>
-        public RippleRestException(RestResultObject restResultObject) : this(restResultObject, null) { }
+        public RippleRestException(RestResponseObject restResultObject) : this(restResultObject, null) { }
 
         /// <summary>
         /// Create a new instance of this exception.
         /// </summary>
         /// <param name="restResultObject">The ResultResultObject associated.</param>
         /// <param name="inner">Inner exception</param>
-        public RippleRestException(RestResultObject restResultObject, Exception inner)
+        public RippleRestException(RestResponseObject restResultObject, Exception inner)
             : base(restResultObject.Message ?? restResultObject.Error, inner)
         {
             this.RestResultObject = restResultObject;

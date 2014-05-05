@@ -115,7 +115,7 @@ namespace RippleRest
         }
 
         internal void HandleRestResponseErrors<T>(IRestResponse<T> response)
-            where T : RestResultObject
+            where T : RestResponseObject
         {
             HandleResponseErrors(response);
             {
@@ -125,7 +125,7 @@ namespace RippleRest
             }
         }
 
-        private class IsServerConnectedResult : RestResultObject
+        private class IsServerConnectedResult : RestResponseObject
         {
             [JsonProperty("connected")]
             public bool Connected { set; get; }
@@ -168,7 +168,7 @@ namespace RippleRest
             return (Newtonsoft.Json.Linq.JContainer)JsonConvert.DeserializeObject(result.Content);
         }
 
-        private class GenerateUUIDResult : RestResultObject
+        private class GenerateUUIDResult : RestResponseObject
         {
             [JsonProperty("uuid")]
             public string UUID { set; get; }

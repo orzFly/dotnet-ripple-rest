@@ -11,7 +11,7 @@ namespace RippleRest
     /// https://github.com/ripple/ripple-rest/blob/develop/docs/api-reference.md#get-server-info
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class ServerInfo : RestResultObject
+    public class ServerInfo : RestResponseObject
     {
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public class LastClose
