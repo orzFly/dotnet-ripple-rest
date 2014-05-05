@@ -10,7 +10,8 @@ namespace RippleRest
     /// <summary>
     /// A simplified Trustline object used by the ripple-rest API
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
+    [Serializable]
+    [TypeConverter(typeof(SerializableExpandableObjectConverter))]
     public partial class Trustline : RestObject
     {
         /// <summary>

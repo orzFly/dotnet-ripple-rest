@@ -10,7 +10,8 @@ namespace RippleRest
     /// <summary>
     /// A simplified representation of an account Balance
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
+    [Serializable]
+    [TypeConverter(typeof(SerializableExpandableObjectConverter))]
     public partial class Balance : RestObject
     {
         /// <summary>

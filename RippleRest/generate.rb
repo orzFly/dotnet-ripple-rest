@@ -91,6 +91,7 @@ namespace RippleRest
     /// <summary>
     /// #{json['description']}
     /// </summary>
+	[Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public partial class #{key} : RestObject
     {

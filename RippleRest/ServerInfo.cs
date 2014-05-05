@@ -10,10 +10,12 @@ namespace RippleRest
     /// <summary>
     /// https://github.com/ripple/ripple-rest/blob/develop/docs/api-reference.md#get-server-info
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
+    [Serializable]
+    [TypeConverter(typeof(SerializableExpandableObjectConverter))]
     public class ServerInfo : RestResponseObject
     {
-        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         public class LastClose
         {
             [JsonProperty("converge_time_s")]
@@ -23,7 +25,8 @@ namespace RippleRest
             public int Proposers { get; set; }
         }
 
-        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         public class ValidatedLedger
         {
             [JsonProperty("age")]
@@ -45,7 +48,8 @@ namespace RippleRest
             public int Sequence { get; set; }
         }
 
-        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         public class RippledStatus
         {
             [JsonProperty("build_version")]

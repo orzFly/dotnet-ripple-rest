@@ -10,7 +10,8 @@ namespace RippleRest
     /// <summary>
     /// An object 
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
+    [Serializable]
+    [TypeConverter(typeof(SerializableExpandableObjectConverter))]
     public partial class AccountSettings : RestObject
     {
         /// <summary>

@@ -6,6 +6,7 @@ using System.Security;
 using System.Runtime.InteropServices;
 using RestSharp;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace RippleRest
 {
@@ -76,6 +77,8 @@ namespace RippleRest
             this.Secret = secret;
         }
 
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         private class GetBalancesResponse : RestResponseObject
         {
             [JsonProperty("balances")]
@@ -108,6 +111,8 @@ namespace RippleRest
             return result.Data.Balances;
         }
 
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         private class GetTrustlinesResponse : RestResponseObject
         {
             [JsonProperty("trustlines")]
@@ -138,6 +143,101 @@ namespace RippleRest
             return result.Data.Trustlines;
         }
 
+        /// <summary>
+        /// Response of Account.AddTrustline
+        /// </summary>
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        public class AddTrustlineResponse : RestResponseObject
+        {
+            /// <summary>
+            /// Trustline object
+            /// </summary>
+            [JsonProperty("trustline")]
+            public Trustline Trustline { set; get; }
+
+            /// <summary>
+            /// Hash
+            /// </summary>
+            [JsonProperty("hash")]
+            public String Hash { set; get; }
+
+            /// <summary>
+            /// Ledger
+            /// </summary>
+            [JsonProperty("ledger")]
+            public String Ledger { set; get; }
+        }
+
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        private class AddTrustlineRequest : RestRequestObject
+        {
+            [JsonProperty("trustline")]
+            public Trustline Trustline { set; get; }
+
+            [JsonProperty("allow_rippling")]
+            public bool AllowRippling { set; get; }
+        }
+
+        /// <summary>
+        /// Add trustline for this account.
+        /// </summary>
+        /// <param name="trustline">A trustline object.</param>
+        /// <returns>An instance of AddTrustlineResponse</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public AddTrustlineResponse AddTrustline(Trustline trustline)
+        {
+            return AddTrustline(RippleRestClient.GetDefaultInstanceOrThrow(), trustline);
+        }
+
+        /// <summary>
+        /// Add trustline for this account.
+        /// </summary>
+        /// <param name="allowRippling">Defaults to true. See [here](https://ripple.com/wiki/No_Ripple) for details</param>
+        /// <param name="trustline">A trustline object.</param>
+        /// <returns>An instance of AddTrustlineResponse</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public AddTrustlineResponse AddTrustline(Trustline trustline, bool allowRippling)
+        {
+            return AddTrustline(RippleRestClient.GetDefaultInstanceOrThrow(), trustline, allowRippling);
+        }
+
+        /// <summary>
+        /// Add trustline for this account.
+        /// </summary>
+        /// <param name="trustline">A trustline object.</param>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <returns>An instance of AddTrustlineResponse</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public AddTrustlineResponse AddTrustline(RippleRestClient client, Trustline trustline)
+        {
+            return AddTrustline(client, trustline, true);
+        }
+
+        /// <summary>
+        /// Add trustline for this account.
+        /// </summary>
+        /// <param name="allowRippling">Defaults to true. See [here](https://ripple.com/wiki/No_Ripple) for details</param>
+        /// <param name="trustline">A trustline object.</param>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <returns>An instance of AddTrustlineResponse</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public AddTrustlineResponse AddTrustline(RippleRestClient client, Trustline trustline, bool allowRippling)
+        {
+            var request = new AddTrustlineRequest();
+            request.Secret = this.Secret;
+            request.Trustline = trustline;
+            request.AllowRippling = allowRippling;
+
+            var result = client.RestClient.Execute<AddTrustlineResponse>(client.CreatePostRequest(request, "v1/accounts/{0}/trustlines", Address));
+            client.HandleRestResponseErrors(result);
+
+            return result.Data;
+        }
+
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         private class GetSettingsResponse : RestResponseObject
         {
             [JsonProperty("settings")]
@@ -169,6 +269,8 @@ namespace RippleRest
             return result.Data.Settings;
         }
 
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         private class GetNotificationResponse : RestResponseObject
         {
             [JsonProperty("notification")]
@@ -212,6 +314,8 @@ namespace RippleRest
             return result.Data.Notification;
         }
 
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         private class GetPaymentResponse : RestResponseObject
         {
             [JsonProperty("payment")]

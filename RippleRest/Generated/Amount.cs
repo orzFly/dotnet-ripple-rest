@@ -10,7 +10,8 @@ namespace RippleRest
     /// <summary>
     /// An Amount on the Ripple Protocol, used also for XRP in the ripple-rest API
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
+    [Serializable]
+    [TypeConverter(typeof(SerializableExpandableObjectConverter))]
     public partial class Amount : RestObject
     {
         /// <summary>

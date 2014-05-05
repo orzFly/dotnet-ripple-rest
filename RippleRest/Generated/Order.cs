@@ -10,7 +10,8 @@ namespace RippleRest
     /// <summary>
     /// A simplified Order object used by the ripple-rest API (note that "orders" are referred to elsewhere in the Ripple protocol as "offers")
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
+    [Serializable]
+    [TypeConverter(typeof(SerializableExpandableObjectConverter))]
     public partial class Order : RestObject
     {
         /// <summary>

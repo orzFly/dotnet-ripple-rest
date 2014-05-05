@@ -214,5 +214,46 @@ namespace RippleRest.Demo
                 });
             }).Start();
         }
+
+        private void AddTrustline(object sender, RoutedEventArgs e)
+        {
+            var account = new Account(this.AccountAddressBox.Text, this.AccountSecretBox.Text);
+            var trustline = new Trustline() { 
+                Account = account.Address, 
+                Currency = this.AddTrustlineCurrency.Text,
+                Limit = this.AddTrustlineLimit.Text, 
+                Counterparty = this.AddTrustlineCounterparty.Text
+            };
+            var allowRippling = this.AddTrustlineAllowRippling.IsChecked ?? false;
+            this.AddTrustlineButton.IsEnabled = false;
+            this.AddTrustlineBox.SelectedObject = null;
+
+            new Thread(() =>
+            {
+                object result = null;
+                Exception ex = null;
+                try
+                {
+                    result = account.AddTrustline(client, trustline, allowRippling);
+                }
+                catch (Exception exc)
+                {
+                    ex = exc;
+                }
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    this.AddTrustlineButton.IsEnabled = true;
+                    if (ex != null)
+                    {
+                        this.AddTrustlineBox.SelectedObject = ex;
+                    }
+                    else
+                    {
+                        this.AddTrustlineBox.SelectedObject = result;
+                    }
+                });
+            }).Start();
+        }
     }
 }

@@ -50,12 +50,14 @@
     <Compile Include="Generated\Order.cs" />
     <Compile Include="Generated\Payment.cs" />
     <Compile Include="Generated\Trustline.cs" />
-    <Compile Include="RestResultObject.cs" />
+    <Compile Include="RestRequestObject.cs" />
+    <Compile Include="RestResponseObject.cs" />
     <Compile Include="RippleRestClient.cs" />
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestObject.cs" />
     <Compile Include="RippleRestException.cs" />
+    <Compile Include="SerializableExpandableObjectConverter.cs" />
     <Compile Include="ServerInfo.cs" />
   </ItemGroup>
   <ItemGroup>

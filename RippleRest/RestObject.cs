@@ -11,6 +11,8 @@ namespace RippleRest
     /// <summary>
     /// Base class for all RestObject
     /// </summary>
+    [Serializable]
+    [TypeConverter(typeof(SerializableExpandableObjectConverter))]
     public abstract class RestObject
     {
         /// <summary>

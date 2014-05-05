@@ -57,6 +57,31 @@
                             <local:StupidPropertyGrid  x:Name="GetTrustlinesBox" Grid.Column="1"/>
                         </Grid>
                     </TabItem>
+
+                    <TabItem Header="AddTrustline">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center"><Run Text="Limit"/></TextBlock>
+                            <TextBox x:Name="AddTrustlineLimit" Grid.Column="1" Grid.Row="0" Height="25" TextWrapping="NoWrap" Text="5" VerticalAlignment="Center" MaxLines="1"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Center" VerticalAlignment="Center"><Run Text="Currency"/></TextBlock>
+                            <TextBox x:Name="AddTrustlineCurrency" Grid.Column="1" Grid.Row="1" Height="25" TextWrapping="NoWrap" Text="ICE" VerticalAlignment="Center" MaxLines="1"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Center" VerticalAlignment="Center"><Run Text="Counterparty"/></TextBlock>
+                            <TextBox x:Name="AddTrustlineCounterparty" Grid.Column="1" Grid.Row="2" Height="25" TextWrapping="NoWrap" Text="r4H3F9dDaYPFwbrUsusvNAHLz2sEZk4wE5" VerticalAlignment="Center" MaxLines="1"/>
+                            <CheckBox x:Name="AddTrustlineAllowRippling" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">Allow Rippling</CheckBox>
+                            <Button x:Name="AddTrustlineButton" Content="Add Trustlines" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddTrustline" Grid.Row="4"/>
+                            <local:StupidPropertyGrid  x:Name="AddTrustlineBox" Grid.Column="1" Grid.Row="4"/>
+                        </Grid>
+                    </TabItem>
                     <TabItem Header="Settings">
                         <Grid>
                             <Grid.ColumnDefinitions>

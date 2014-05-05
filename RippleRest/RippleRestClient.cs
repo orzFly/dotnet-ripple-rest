@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace RippleRest
 {
@@ -86,6 +87,21 @@ namespace RippleRest
             return CreateGetRequest(String.Format(format, args));
         }
 
+        internal RestRequest CreatePostRequest(object data, string resource)
+        {
+            var request = new RestRequest(resource, Method.POST);
+            request.JsonSerializer = JsonSerializer;
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(data);
+
+            return request;
+        }
+
+        internal RestRequest CreatePostRequest(object data, string format, params object[] args)
+        {
+            return CreatePostRequest(data, String.Format(format, args));
+        }
+
         internal void HandleResponseErrors(IRestResponse response)
         {
             if (response.ResponseStatus == ResponseStatus.Error)
@@ -125,6 +141,8 @@ namespace RippleRest
             }
         }
 
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         private class IsServerConnectedResult : RestResponseObject
         {
             [JsonProperty("connected")]
@@ -168,6 +186,8 @@ namespace RippleRest
             return (Newtonsoft.Json.Linq.JContainer)JsonConvert.DeserializeObject(result.Content);
         }
 
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
         private class GenerateUUIDResult : RestResponseObject
         {
             [JsonProperty("uuid")]
