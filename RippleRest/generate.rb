@@ -29,7 +29,7 @@ arraylist = []
 schemas.values.select{|i|i["type"] == "object"}.each do |json|
   key = json["title"]
   
-  io = open "Generated/#{key}.cs", "w"
+  io = open "#{key}.generated.cs", "w"
   io2 = StringIO.new
   json["properties"].each do |k, v|
     type = ""
