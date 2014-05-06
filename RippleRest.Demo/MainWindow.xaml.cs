@@ -23,11 +23,17 @@ namespace RippleRest.Demo
         RippleRestClient client = null;
 
         Account.QueryPaymentsOptions queryOptions = new Account.QueryPaymentsOptions();
+        Payment payment = new Payment();
+
         public MainWindow()
         {
             InitializeComponent();
 
             this.QueryPaymentsOptionsBox.SelectedObject = queryOptions;
+
+            payment.DestinationAmount = new Amount();
+            payment.SourceAmount = new Amount();
+            this.SubmitPaymentOptionsBox.SelectedObject = payment;
         }
 
         private void EndpointURL_TextChanged(object sender, TextChangedEventArgs e)
@@ -372,6 +378,47 @@ namespace RippleRest.Demo
                     else
                     {
                         this.QueryPaymentsResultBox.SelectedObject = result;
+                    }
+                });
+            }).Start();
+        }
+
+        private void SubmitPayment(object sender, RoutedEventArgs e)
+        {
+            var account = new Account(this.AccountAddressBox.Text, this.AccountSecretBox.Text);
+            this.SubmitPaymentButton.IsEnabled = false;
+            this.SubmitPaymentLabel.Content = "Submiting...";
+            this.SubmitPaymentLabel.Foreground = Brushes.Orange;
+
+            new Thread(() =>
+            {
+                object result = null;
+                string key = "";
+                Exception ex = null;
+                try
+                {
+                    var pay = account.SubmitPayment(client, payment);
+                    result = pay;
+                    key = pay.ClientResourceId;
+                }
+                catch (Exception exc)
+                {
+                    ex = exc;
+                }
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    this.SubmitPaymentButton.IsEnabled = true;
+                    if (ex != null)
+                    {
+                        this.SubmitPaymentLabel.Content = ex.ToString();
+                        this.SubmitPaymentLabel.Foreground = Brushes.Red;
+                    }
+                    else
+                    {
+                        this.SubmitPaymentLabel.Content = "Successfully submitted. " + key;
+                        this.SubmitPaymentLabel.Foreground = Brushes.DarkGreen;
+                        this.SubmitPaymentOptionsBox.SelectedObject = payment = (Payment)result;
                     }
                 });
             }).Start();

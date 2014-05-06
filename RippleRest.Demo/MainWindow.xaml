@@ -132,6 +132,18 @@
                             <local:StupidPropertyGrid  x:Name="QueryPaymentsResultBox" Grid.Column="0" Grid.Row="2"/>
                         </Grid>
                     </TabItem>
+                    <TabItem Header="SubmitPayment">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50*"/>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25"/>
+                            </Grid.RowDefinitions>
+                            <local:StupidPropertyGrid  x:Name="SubmitPaymentOptionsBox" Grid.Column="0" Grid.Row="0"/>
+                            <Button x:Name="SubmitPaymentButton" Content="SubmitPayment" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitPayment" Grid.Row="1"/>
+                            <Label x:Name="SubmitPaymentLabel" Content="" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center"/>
+                        </Grid>
+                    </TabItem>
                 </TabControl>
             </Grid>
 
