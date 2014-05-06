@@ -20,11 +20,14 @@ namespace RippleRest.Demo
     /// </summary>
     public partial class MainWindow : Window
     {
-        RippleRestClient client = null; 
+        RippleRestClient client = null;
 
+        Account.QueryPaymentsOptions queryOptions = new Account.QueryPaymentsOptions();
         public MainWindow()
         {
             InitializeComponent();
+
+            this.QueryPaymentsOptionsBox.SelectedObject = queryOptions;
         }
 
         private void EndpointURL_TextChanged(object sender, TextChangedEventArgs e)
@@ -334,6 +337,41 @@ namespace RippleRest.Demo
                     else
                     {
                         this.FindPaymentPathsBox.SelectedObject = result;
+                    }
+                });
+            }).Start();
+        }
+
+        private void QueryPayments(object sender, RoutedEventArgs e)
+        {
+            var account = new Account(this.AccountAddressBox.Text, this.AccountSecretBox.Text);
+
+            this.QueryPaymentsButton.IsEnabled = false;
+            this.QueryPaymentsResultBox.SelectedObject = null;
+
+            new Thread(() =>
+            {
+                object result = null;
+                Exception ex = null;
+                try
+                {
+                    result = account.QueryPayments(client, queryOptions);
+                }
+                catch (Exception exc)
+                {
+                    ex = exc;
+                }
+
+                this.Dispatcher.Invoke((Action)delegate
+                {
+                    this.QueryPaymentsButton.IsEnabled = true;
+                    if (ex != null)
+                    {
+                        this.QueryPaymentsResultBox.SelectedObject = ex;
+                    }
+                    else
+                    {
+                        this.QueryPaymentsResultBox.SelectedObject = result;
                     }
                 });
             }).Start();

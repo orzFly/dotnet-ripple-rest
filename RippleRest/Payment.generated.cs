@@ -26,7 +26,7 @@ namespace RippleRest
         /// A string representing an unsigned 32-bit integer most commonly used to refer to a sender's hosted account at a Ripple gateway
         /// </summary>
         [JsonProperty("source_tag")]
-        public UInt32 SourceTag { get; set; }
+        public string SourceTag { get; set; }
 
         /// <summary>
         /// An optional amount that can be specified to constrain cross-currency payments
@@ -54,7 +54,7 @@ namespace RippleRest
         /// A string representing an unsigned 32-bit integer most commonly used to refer to a receiver's hosted account at a Ripple gateway
         /// </summary>
         [JsonProperty("destination_tag")]
-        public UInt32 DestinationTag { get; set; }
+        public string DestinationTag { get; set; }
 
         /// <summary>
         /// The amount the destination_account will receive
@@ -133,7 +133,7 @@ namespace RippleRest
         /// </summary>
         [JsonProperty("timestamp")]
         public DateTime Timestamp { get; set; }
-
+        
         /// <summary>
         /// The Ripple Network transaction fee, represented in whole XRP (NOT "drops", or millionths of an XRP, which is used elsewhere in the Ripple protocol)
         /// </summary>
@@ -146,13 +146,13 @@ namespace RippleRest
         /// Parsed from the validated transaction metadata, this array represents all of the changes to balances held by the source_account. Most often this will have one amount representing the Ripple Network fee and, if the source_amount was not XRP, one amount representing the actual source_amount that was sent
         /// </summary>
         [JsonProperty("source_balance_changes")]
-        public Amount[] SourceBalanceChanges { get; set; }
+        public List<Amount> SourceBalanceChanges { get; set; }
 
         /// <summary>
         /// Parsed from the validated transaction metadata, this array represents the changes to balances held by the destination_account. For those receiving payments this is important to check because if the partial_payment flag is set this value may be less than the destination_amount
         /// </summary>
         [JsonProperty("destination_balance_changes")]
-        public Amount[] DestinationBalanceChanges { get; set; }
+        public List<Amount> DestinationBalanceChanges { get; set; }
 
 
     }

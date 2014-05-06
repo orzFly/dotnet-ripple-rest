@@ -78,6 +78,7 @@ namespace RippleRest
         {
             var request = new RestRequest(resource, Method.GET);
             request.JsonSerializer = JsonSerializer;
+            request.RequestFormat = DataFormat.Json;
 
             return request;
         }

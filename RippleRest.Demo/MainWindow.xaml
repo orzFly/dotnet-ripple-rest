@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:RippleRest.Demo" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="RippleRest.Demo.MainWindow"
     
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="481" Width="701">
     <TabControl>
         <TabItem Header="Server">
             <Grid>
@@ -36,7 +36,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="AccountAddressBox" Grid.Column="0" Grid.Row="0" Height="25" TextWrapping="NoWrap" Text="rES1hSkoWauMk3r6sgh7zfjpTCnwGbqaxA" VerticalAlignment="Center" MaxLines="1"/>
                 <TextBox x:Name="AccountSecretBox" Grid.Column="1" Grid.Row="0" Height="25" TextWrapping="NoWrap" Text="sSECRET" VerticalAlignment="Center" MaxLines="1"/>
-                <TabControl Grid.Row="1" Grid.ColumnSpan="2">
+                <TabControl Grid.Row="1" Grid.ColumnSpan="2" FlowDirection="LeftToRight">
                     <TabItem Header="Balances">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -118,6 +118,18 @@
                             <local:StupidPropertyGrid  x:Name="GetSettingsBox" Grid.Column="1"/>
                             <Button x:Name="SetSettingsButton" Content="Set Settings" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Click="SetSettings" IsEnabled="False"/>
                             <Label x:Name="SetSettingsLabel" Content="" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="QueryPayments">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50*"/>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="50*"/>
+                            </Grid.RowDefinitions>
+                            <local:StupidPropertyGrid  x:Name="QueryPaymentsOptionsBox" Grid.Column="0" Grid.Row="0"/>
+                            <Button x:Name="QueryPaymentsButton" Content="QueryPayments" HorizontalAlignment="Center" VerticalAlignment="Center" Click="QueryPayments" Grid.Row="1"/>
+                            <local:StupidPropertyGrid  x:Name="QueryPaymentsResultBox" Grid.Column="0" Grid.Row="2"/>
                         </Grid>
                     </TabItem>
                 </TabControl>

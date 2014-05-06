@@ -48,6 +48,7 @@
     <Compile Include="Amount.generated.cs" />
     <Compile Include="Balance.cs" />
     <Compile Include="Balance.generated.cs" />
+    <Compile Include="Payment.cs" />
     <Compile Include="Notification.generated.cs" />
     <Compile Include="Order.generated.cs" />
     <Compile Include="Payment.generated.cs" />

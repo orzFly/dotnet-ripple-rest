@@ -331,7 +331,7 @@ namespace RippleRest
         /// <exception cref="RippleRestException">Request failed.</exception>
         public Notification GetNotification(string hash)
         {
-            return GetNotification(hash, RippleRestClient.GetDefaultInstanceOrThrow());
+            return GetNotification(RippleRestClient.GetDefaultInstanceOrThrow(), hash);
         }
 
         /// <summary>
@@ -346,7 +346,7 @@ namespace RippleRest
         /// <param name="client">A RippleRestClient used for this request.</param>
         /// <returns>Notification instance</returns>
         /// <exception cref="RippleRestException">Request failed.</exception>
-        public Notification GetNotification(string hash, RippleRestClient client)
+        public Notification GetNotification(RippleRestClient client, string hash)
         {
             var result = client.RestClient.Execute<GetNotificationResponse>(client.CreateGetRequest("v1/accounts/{0}/notifications/{1}", Address, hash));
             client.HandleRestResponseErrors(result);
@@ -371,7 +371,7 @@ namespace RippleRest
         /// <exception cref="RippleRestException">Request failed.</exception>
         public Payment GetPayment(string hash)
         {
-            return GetPayment(hash, RippleRestClient.GetDefaultInstanceOrThrow());
+            return GetPayment(RippleRestClient.GetDefaultInstanceOrThrow(), hash);
         }
 
         /// <summary>
@@ -381,7 +381,7 @@ namespace RippleRest
         /// <param name="client">A RippleRestClient used for this request.</param>
         /// <returns>Payment instance</returns>
         /// <exception cref="RippleRestException">Request failed.</exception>
-        public Payment GetPayment(string hash, RippleRestClient client)
+        public Payment GetPayment(RippleRestClient client, string hash)
         {
             var result = client.RestClient.Execute<GetPaymentResponse>(client.CreateGetRequest("v1/accounts/{0}/payments/{1}", Address, hash));
             client.HandleRestResponseErrors(result);
@@ -831,5 +831,191 @@ namespace RippleRest
             return result.Data.Payments;
         }
 
+
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        private class QueryPaymentsResponse : RestResponseObject
+        {
+            [JsonProperty("payments")]
+            public List<PaymentAndClientResourceIdBundle> Payments { set; get; }
+        }
+
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        private class PaymentAndClientResourceIdBundle
+        {
+            [JsonProperty("client_resource_id")]
+            public string ClientResourceId { set; get; }
+
+            [JsonProperty("payment")]
+            public Payment Payment { set; get; }
+        }
+
+        /// <summary>
+        /// A data class for options used in <see cref="Account.QueryPayments"/>
+        /// </summary>
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        public class QueryPaymentsOptions
+        {
+            /// <summary>
+            /// If specified, limit the results to payments initiated by a particular account
+            /// </summary>
+            public string SourceAccount { get; set; }
+
+            /// <summary>
+            /// If specified, limit the results to payments made to a particular account
+            /// </summary>
+            public string DestinationAccount { get; set; }
+
+            /// <summary>
+            /// if set to true, this will return only payment that were successfully validated and written into the Ripple Ledger
+            /// </summary>
+            public bool? ExcludeFailed { get; set; }
+
+            /// <summary>
+            /// If earliest_first is set to true this will be the index number of the earliest ledger queried, or the most recent one if earliest_first is set to false. Defaults to the first ledger the rippled has in its complete ledger. An error will be returned if this value is outside the rippled's complete ledger set
+            /// </summary>
+            public string StartLedger { get; set; }
+
+            /// <summary>
+            /// If earliest_first is set to true this will be the index number of the most recent ledger queried, or the earliest one if earliest_first is set to false. Defaults to the last ledger the rippled has in its complete ledger. An error will be returned if this value is outside the rippled's complete ledger set
+            /// </summary>
+            public string EndLedger { get; set; }
+
+            /// <summary>
+            /// Determines the order in which the results should be displayed. Defaults to true
+            /// </summary>
+            public bool? EarliestFirst { get; set; }
+
+            /// <summary>
+            /// Limits the number of resources displayed per page. Defaults to 20
+            /// </summary>
+            public int? ResultsPerPage { get; set; }
+
+            /// <summary>
+            /// The page to be displayed. If there are fewer than the results_per_page number displayed, this indicates that this is the last page
+            /// </summary>
+            public int? Page { get; set; }
+        }
+
+        /// <summary>
+        /// Browse historical payments in bulk.
+        /// </summary>
+        /// <param name="options">A QueryPaymentsOptions instance</param>
+        /// <returns>A list of Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> QueryPayments(QueryPaymentsOptions options)
+        {
+            return QueryPayments(RippleRestClient.GetDefaultInstanceOrThrow(), options);
+        }
+
+        /// <summary>
+        /// Browse historical payments in bulk.
+        /// </summary>
+        /// <returns>A list of Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> QueryPayments()
+        {
+            return QueryPayments(RippleRestClient.GetDefaultInstanceOrThrow(), null);
+        }
+
+        /// <summary>
+        /// Browse historical payments in bulk.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="options">A QueryPaymentsOptions instance</param>
+        /// <returns>A list of Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> QueryPayments(RippleRestClient client)
+        {
+            return QueryPayments(client, null);
+        }
+
+        /// <summary>
+        /// Browse historical payments in bulk.
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="options">A QueryPaymentsOptions instance</param>
+        /// <returns>A list of Payment instances</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public List<Payment> QueryPayments(RippleRestClient client, QueryPaymentsOptions options)
+        {
+            var request = client.CreateGetRequest("v1/accounts/{0}/payments", Address);
+            if (options != null)
+            {
+                var args = new Dictionary<string, string>();
+
+                if (options.SourceAccount != null) args.Add("source_account", options.SourceAccount);
+                if (options.DestinationAccount != null) args.Add("destination_account", options.DestinationAccount);
+                if (options.EarliestFirst != null) args.Add("earliest_first", options.EarliestFirst.Value ? "true" : "false");
+                if (options.ExcludeFailed != null) args.Add("exclude_failed", options.ExcludeFailed.Value ? "true" : "false");
+                if (options.StartLedger != null) args.Add("start_ledger", options.StartLedger);
+                if (options.EndLedger != null) args.Add("end_ledger", options.EndLedger);
+                if (options.Page != null) args.Add("page", options.Page.Value.ToString());
+                if (options.ResultsPerPage != null) args.Add("results_per_page", options.ResultsPerPage.Value.ToString());
+
+                foreach (var item in args)
+                    request.AddParameter(item.Key, item.Value, ParameterType.QueryString);
+            }
+            var result = client.RestClient.Execute<QueryPaymentsResponse>(request);
+            client.HandleRestResponseErrors(result);
+
+            return result.Data.Payments.ConvertAll((o) => {
+                o.Payment.ClientResourceId = o.ClientResourceId;
+                return o.Payment;
+            });
+        }
+
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        private class SubmitPaymentRequest : RestRequestObject
+        {
+            [JsonProperty("payment")]
+            public Payment Payment { set; get; }
+        }
+
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        private class SubmitPaymentResponse : RestResponseObject
+        {
+            [JsonProperty("client_resource_id")]
+            public string ClientResourceId { set; get; }
+        }
+
+        /// <summary>
+        /// Submits a payment
+        /// </summary>
+        /// <param name="payment">Payment object</param>
+        /// <returns>Original Payment object with Client Resource Id filled</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public Payment SubmitPayment(Payment payment)
+        {
+            return SubmitPayment(RippleRestClient.GetDefaultInstanceOrThrow(), payment);
+        }
+
+        /// <summary>
+        /// Submits a payment
+        /// </summary>
+        /// <param name="client">A RippleRestClient used for this request.</param>
+        /// <param name="payment">Payment object</param>
+        /// <returns>Original Payment object with Client Resource Id filled</returns>
+        /// <exception cref="RippleRestException">Request failed.</exception>
+        public Payment SubmitPayment(RippleRestClient client, Payment payment)
+        {
+            payment.ClientResourceId = client.GenerateUUID();
+            payment.SourceAccount = this.Address;
+            var data = new SubmitPaymentRequest
+            {
+                Payment = payment,
+                Secret = this.Secret,
+                ClientResourceId = payment.ClientResourceId
+            };
+
+            var result = client.RestClient.Execute<SubmitPaymentResponse>(client.CreatePostRequest(data, "v1/payments", Address));
+            client.HandleRestResponseErrors(result);
+            payment.ClientResourceId = result.Data.ClientResourceId;
+            return payment;
+        }
     }
 }
