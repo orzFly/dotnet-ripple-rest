@@ -42,7 +42,7 @@ schemas.values.select{|i|i["type"] == "object"}.each do |json|
     elsif v["type"] == "boolean"
       type = "bool"
     elsif v["type"] == "array"
-      type = "#{v["items"]["$ref"]}[]"
+      type = "List<#{v["items"]["$ref"]}>"
     elsif v["type"] == "float"
       type = "double"
     elsif v["$ref"] == "UINT32"
