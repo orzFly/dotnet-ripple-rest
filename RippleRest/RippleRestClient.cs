@@ -174,6 +174,14 @@ namespace RippleRest
             return result.Data;
         }
 
+        [Serializable]
+        [TypeConverter(typeof(SerializableExpandableObjectConverter))]
+        private class GetTransactionResult : RestResponseObject
+        {
+            [JsonProperty("transaction")]
+            public Transaction Transaction { set; get; }
+        }
+
         /// <summary>
         /// Retrieve the details of a transaction in the standard Ripple JSON format. 
         /// </summary>
@@ -182,7 +190,7 @@ namespace RippleRest
         /// <exception cref="RippleRestException">Request failed.</exception>
         public object GetTransaction(string hash)
         {
-            var result = RestClient.Execute(CreateGetRequest("v1/transactions/" + hash));
+            var result = RestClient.Execute<GetTransactionResult>(CreateGetRequest("v1/transactions/" + hash));
             HandleResponseErrors(result);
             return (Newtonsoft.Json.Linq.JContainer)JsonConvert.DeserializeObject(result.Content);
         }

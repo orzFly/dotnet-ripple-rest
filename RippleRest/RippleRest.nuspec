@@ -10,14 +10,12 @@
     <description>A Ripple REST client for .NET.</description>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="6.0.3" />
+      <dependency id="RestSharp" version="104.4.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\net40\RippleRest.dll" target="lib\net40\RippleRest.dll" />
-    <file src="bin\Release\net40\RippleRest.pdb" target="lib\net40\RippleRest.pdb" />
-    <file src="bin\Release\net40\RippleRest.xml" target="lib\net40\RippleRest.xml" />
-    <file src="bin\Release\net45\RippleRest.dll" target="lib\net45\RippleRest.dll" />
-    <file src="bin\Release\net45\RippleRest.pdb" target="lib\net45\RippleRest.pdb" />
-    <file src="bin\Release\net45\RippleRest.xml" target="lib\net45\RippleRest.xml" />
+    <file src="bin\Release\RippleRest.dll" target="lib\net40\RippleRest.dll" />
+    <file src="bin\Release\RippleRest.pdb" target="lib\net40\RippleRest.pdb" />
+    <file src="bin\Release\RippleRest.xml" target="lib\net40\RippleRest.xml" />
   </files>
 </package>

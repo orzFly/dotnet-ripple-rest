@@ -52,6 +52,7 @@
     <Compile Include="Notification.generated.cs" />
     <Compile Include="Order.generated.cs" />
     <Compile Include="Payment.generated.cs" />
+    <Compile Include="Transaction.cs" />
     <Compile Include="Trustline.generated.cs" />
     <Compile Include="RestRequestObject.cs" />
     <Compile Include="RestResponseObject.cs" />
