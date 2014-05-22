@@ -14,3 +14,22 @@ To install Ripple Rest for .NET, run the following command in the Package Manage
 ```
 PM> Install-Package RippleRest
 ```
+
+Usage
+-----
+You can use RippleRest by setting a default client instance:
+
+```csharp
+RippleRestClient.DefaultInstance = new RippleRestClient("http://localhost:5990/");
+...
+var account = new Account(this.AccountAddressBox.Text, this.AccountSecretBox.Text);
+account.GetTrustlines();
+```
+
+or by passing client to every call:
+
+```csharp
+var client = new RippleRestClient("http://localhost:5990/");
+var account = new Account(this.AccountAddressBox.Text, this.AccountSecretBox.Text);
+account.GetTrustlines(client);
+```
